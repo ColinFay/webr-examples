@@ -17,7 +17,8 @@
     <div class="row align-items-start">
       <div class="col-4">
         <label for="customRange1" class="form-label">Number of bins:</label>
-        <input type="range" class="form-range" id="customRange1" min=1 max=30>
+        <input type="range" class="form-range" id="customRange1" min=1 max=30 value = 10>
+        <div id="bins">Selected: 10</div>
       </div>
       <div class="col-8">
         <div>
@@ -58,7 +59,7 @@
         alert("Error catchin result from R")
       })
     const update = function (n = 10) {
-      fetch(`/hist-data/${n}`).then((data) => {
+      fetch(`hist-data/${n}`).then((data) => {
         data.json().then((res) => {
           globalThis.chart.data.labels = res.names;
           globalThis.chart.data.datasets.forEach(dataset => {
@@ -67,6 +68,8 @@
           globalThis.chart.update();
         })
       })
+      document.querySelector('#bins').innerHTML = `Selected: ${n}`;
+
     }
     document.querySelector('#customRange1').addEventListener(
       'change',
