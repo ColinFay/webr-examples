@@ -1,22 +1,18 @@
-FROM node:18
+FROM r-base:4.3.1
 
 ENV R_VERSION=4.2.3
 
 # Create app directory
 WORKDIR /usr/src/app
 
+RUN apt update && \
+  apt install nodejs npm -y
+
 COPY package*.json ./
 
 RUN npm install
 
-# Installing R
-
-RUN apt-get update && \apt-get install gdebi-core -y
-
-RUN curl -O https://cdn.rstudio.com/r/debian-12/pkgs/r-${R_VERSION}_1_amd64.deb && \
-  gdebi r-${R_VERSION}_1_amd64.deb
-
-RUN /opt/R/${R_VERSION}/bin/Rscript ./node_modules/webrtools/r/install.R dplyr
+RUN Rscript ./node_modules/webrtools/r/install.R dplyr
 
 COPY . .
 
