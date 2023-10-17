@@ -51,7 +51,6 @@ app.get('/:n', async (req, res) => {
     'star_wars_by_species(n)',
     { env: { n: req.params.n } }
   );
-  console.log(result)
   try {
     const result_js = await result.toJs();
     res.send(result_js)
