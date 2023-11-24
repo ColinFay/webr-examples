@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "webr": "^0.2.1",
-    "webrtools": "^0.0.2"
+    "webr": "^0.2.2",
+    "webrtools": "^0.0.3"
   }
 }

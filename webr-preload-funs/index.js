@@ -1,6 +1,6 @@
 const app = require('express')()
 const path = require('path');
-const { loadPackages, loadFolder } = require('webrtools');
+const { loadPackages } = require('webrtools');
 const { WebR } = require('webr');
 
 (async () => {
@@ -14,17 +14,21 @@ const { WebR } = require('webr');
     path.join(__dirname, 'webr_packages')
   )
 
-  await loadFolder(
-    globalThis.webR,
-    path.join(__dirname, 'rfuns'),
-    "/home/web_user"
+  await globalThis.webR.FS.mkdir("/home/rfuns")
+
+  await globalThis.webR.FS.mount(
+    "NODEFS",
+    {
+      root: path.join(__dirname, 'rfuns')
+    },
+    "/home/rfuns"
   )
 
   console.log("📦 Packages written to webR 📦");
 
   // see https://github.com/r-wasm/webr/issues/292
   await globalThis.webR.evalR("options(expressions=1000)")
-  await globalThis.webR.evalR("pkgload::load_all('/home/web_user')");
+  await globalThis.webR.evalR("pkgload::load_all('/home/rfuns')");
 
   app.listen(3000, '0.0.0.0', () => {
     console.log('http://localhost:3000')
