@@ -13,3 +13,16 @@ star_wars_by_species <- function(species) {
   dplyr::starwars |>
     filter(species == {{ species }})
 }
+
+#' @title Unique Species
+#' @description Return a vector of unique species
+#' @import dplyr
+#' @export
+#' @return vector
+#' @examples
+#' unique_species()
+unique_species <- function(){
+  dplyr::starwars |>
+    pull(species) |>
+    unique()
+}

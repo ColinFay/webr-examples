@@ -38,7 +38,7 @@ const { WebR } = require('webr');
 
 app.get('/', async (req, res) => {
   let result = await globalThis.webR.evalR(
-    'unique(dplyr::starwars$species)'
+    'unique_species()'
   );
   try {
     let js_res = await result.toJs()
